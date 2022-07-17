@@ -36,15 +36,16 @@ const updateCache = (cache, { data }) => {
     data: { Orders: [updatedData, ...currentValue.Orders] },
   });
 };
-    function handleSubmit(event,variables) {
+    function handleSubmit(event) {
         event.preventDefault();
        navigate(`/customer/${userid}/orders`)
         
       }
       const [addorders]=useMutation(INSERT_ORDERS)
-      function handleClick(event,restaurantid,name,itemid,price){
+      function handleClick(event,restaurantid,name,itemid,price,userid){
         event.preventDefault();
-        navigate('/customer/${gmail}/orders')
+        console.log(userid)
+        navigate(`/customer/${userid}/orders`)
        addorders({
         variables:{
           Restaurantid:restaurantid,
@@ -59,7 +60,7 @@ const updateCache = (cache, { data }) => {
     return <>
     <Button type="submit" variant="outline-dark" onClick={handleSubmit} style={{marginBottom:"20px"}}>Check Orders</Button>
         { row?.map((value,index)=>
-  <div style={{display:'flex',margin:"5px"}} ><p style={{flex:1}}>{index+1}</p><p style={{flex:1}}>{value.Name}</p><p style={{flex:1}}>{value.Description}</p><p style={{flex:1}}>{value.Price}</p><Button  variant="outline-primary" type="submit" value={value.Restaurantid} onClick={(event)=>handleClick(event,value.Restaurantid,value.Name,value.Itemid,value.Price)}>Order</Button></div>)}
+  <div style={{display:'flex',margin:"5px"}} ><p style={{flex:1}}>{index+1}</p><p style={{flex:1}}>{value.Name}</p><p style={{flex:1}}>{value.Description}</p><p style={{flex:1}}>{value.Price}</p><Button  variant="outline-primary" type="submit" value={value.Restaurantid} onClick={(event)=>handleClick(event,value.Restaurantid,value.Name,value.Itemid,value.Price,userid)}>Order</Button></div>)}
     </>
    
   

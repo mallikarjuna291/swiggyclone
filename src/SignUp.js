@@ -25,7 +25,10 @@ const Signup=()=>{
     //     data: { mytable: [updatedData, ...currentValue.mytable] },
     //   });
     // };
-
+    const navigateLogin = () => {
+      // 👇️ navigate to /contacts
+      navigate('/');
+    };
       const [adddetails] = useMutation(INSERT_USERS, {
         variables: {
           Name: name,
@@ -93,8 +96,9 @@ return  <Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
 }
 
 <Button variant="outline-dark" type="submit">
-  Submit
+Sign Up
 </Button>
+<Button variant="outline-dark" onClick={navigateLogin} style={{marginLeft:"15px"}}>Login</Button>
 </Form>
 
 

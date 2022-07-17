@@ -16,7 +16,10 @@ export const Login=()=>{
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :</p>;
-
+  const navigatetosignup = () => {
+    // 👇️ navigate to /
+    navigate('/signup');
+  };
   function handleSubmit(event,email,password) {
     event.preventDefault();
    console.log(data.users)
@@ -38,8 +41,8 @@ navigate(`/customer/${each.Userid}`);
 
   }
  
- return <Form  onSubmit={(event)=>handleSubmit(event,email,password)} style={{margin:'20%'}}>
-
+ return <div><Form  onSubmit={(event)=>handleSubmit(event,email,password)} style={{margin:'20%'}}>
+<h3>WelCome</h3>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control  placeholder="Enter email" name="email" value={email} onChange={e => setEmail(e.target.value)}/>
@@ -54,8 +57,9 @@ navigate(`/customer/${each.Userid}`);
       </Form.Group>
     
       <Button variant="outline-dark" color="primary" value="Submit"  type="submit">Log in</Button>
-     
+      <Button variant="outline-dark" onClick={navigatetosignup} style={{marginLeft:"15px"}}>Sign Up</Button>
     </Form>
+    </div>
 
  
 }
