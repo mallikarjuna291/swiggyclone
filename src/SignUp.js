@@ -3,6 +3,7 @@ import { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import { INSERT_USERS } from "./Queries/INSERT_USERS";
 import {Form,Button} from 'react-bootstrap'
+import signup from './Images/signup.jpg'
 const Signup=()=>{
   const navigate = useNavigate();
     const [name, setName] =useState('');
@@ -38,14 +39,16 @@ const Signup=()=>{
           navigate(`/owner/${restaurantname}`):navigate(`/customer/${email}`)
         
       }
-return  <Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
+return <div> 
+<img src={signup} style={{paddingLeft:'40%',height:'70%'}}/>
+<Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
 <Form.Group className="mb-3" controlId="formBasicPassword">
   <Form.Label>Name</Form.Label>
-  <Form.Control type="text" placeholder="Enter name" name="name" value={name} onChange={e => setName(e.target.value)}/>
+  <Form.Control type="text" placeholder="Enter name" name="name" value={name} required onChange={e => setName(e.target.value)}/>
 </Form.Group>
 <Form.Group className="mb-3" controlId="formBasicEmail" >
   <Form.Label>Email address</Form.Label>
-  <Form.Control type="email" placeholder="Enter email" name="email" value={email} onChange={e => setEmail(e.target.value)}/>
+  <Form.Control type="email" placeholder="Enter email" name="email" value={email} required onChange={e => setEmail(e.target.value)}/>
   <Form.Text className="text-muted">
     We'll never share your email with anyone else.
   </Form.Text>
@@ -61,7 +64,7 @@ return  <Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicEmail" >
  <Form.Label>User Type</Form.Label>
- <Form.Select as="select" onChange={e => setType(e.target.value)}>
+ <Form.Select as="select" onChange={e => setType(e.target.value)} required>
       <option>Select Option</option>
       <option value="owner" name="owner">Owner</option>
       <option value="customer" name="customer">Customer</option>
@@ -89,11 +92,12 @@ return  <Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
 </div>:null
 }
 
-<Button variant="outline-dark" type="submit">
+<Button variant="outline-dark" type="submit" >
 Sign Up
 </Button>
 <Button variant="outline-dark" onClick={navigateLogin} style={{marginLeft:"15px"}}>Login</Button>
 </Form>
+</div>
 
 
 }

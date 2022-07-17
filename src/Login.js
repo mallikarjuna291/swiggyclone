@@ -3,7 +3,7 @@ import { useState } from "react";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { useNavigate} from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-
+import loginimage from './Images/login.jpg'
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -31,17 +31,19 @@ export const Login = () => {
 
   return (
     <div>
+    <img src={loginimage} style={{paddingLeft:'40%',height:'70%'}}/>
       <Form
         onSubmit={(event) => handleSubmit(event, email, password)}
         style={{ margin: "20%" }}
       >
-        <h3>WelCome</h3>
+       
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             placeholder="Enter email"
             name="email"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Text className="text-muted">
@@ -55,6 +57,7 @@ export const Login = () => {
             type="password"
             placeholder="Password"
             name="password"
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
