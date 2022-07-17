@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider,  } from '@apollo/client';
-import { useNavigate,BrowserRouter  } from 'react-router-dom';
+import { BrowserRouter  } from 'react-router-dom';
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 

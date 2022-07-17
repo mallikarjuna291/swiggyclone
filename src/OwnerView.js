@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { INSERT_DISHES } from "./Queries/INSERT_DISHES";
 import { useMutation, useQuery } from "@apollo/client";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
-import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form, Button } from "react-bootstrap";
 const OwnerView = () => {
@@ -24,7 +22,6 @@ const OwnerView = () => {
 
   const { loading, error, data } = useQuery(RESTAURANTS_QUERY);
   let restaurantid = "";
-  console.log({ data });
   const uri = window.location;
   const encoded = decodeURIComponent(uri);
   const hash = encoded.split("/");
@@ -54,12 +51,11 @@ const OwnerView = () => {
   });
 
   const { data: data1 } = useQuery(DISHES_QUERY);
-  console.log(data1);
   const row = data1?.Dishes;
   var rows = row?.filter(function (item) {
     return item.Restaurantid === restaurantid;
   });
-  console.log(rows);
+
   function handleSubmit(event, variables) {
     event.preventDefault();
     addrestaurant({ variables });

@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { USER_DETAILS } from "./Queries/INSERT_USERDETAILS";
  import {  useMutation } from '@apollo/client';
-import { Navigate } from "react-router";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { INSERT_USERS } from "./Queries/INSERT_USERS";
 import {Form,Button} from 'react-bootstrap'
 const Signup=()=>{
@@ -15,18 +13,7 @@ const Signup=()=>{
     const [restaurantname, setRestaurantname] =useState('');
     const [address,setAddress]=useState('');
     const [status,setStatus]=useState('')
-    // const updateCache = (cache, { data }) => {
-    //   const currentValue = cache.readQuery({
-    //     query: BIO_QUERY,
-    //   });
-    //   const updatedData = data;
-    //   cache.writeQuery({
-    //     query: BIO_QUERY,
-    //     data: { mytable: [updatedData, ...currentValue.mytable] },
-    //   });
-    // };
     const navigateLogin = () => {
-      // 👇️ navigate to /contacts
       navigate('/');
     };
       const [adddetails] = useMutation(INSERT_USERS, {
@@ -39,11 +26,8 @@ const Signup=()=>{
        
             RestaurantName:restaurantname,
             Address:address,
-            Status:status
-          
-        
+            Status:status      
         },
-        // update:updateCache
       });
 
       function handleSubmit(event,variables) {
@@ -67,12 +51,22 @@ return  <Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
   </Form.Text>
 </Form.Group>
 <Form.Group className="mb-3" controlId="formBasicPassword">
-  <Form.Label>Gender</Form.Label>
-  <Form.Control type="text" placeholder="Enter Gender" name="gender" value={gender} onChange={e => setGender(e.target.value)}/>
-</Form.Group>
-<Form.Group className="mb-3" controlId="formBasicPassword">
-  <Form.Label>User Type</Form.Label>
-  <Form.Control type="text" placeholder="Enter customer/owner" name="type" value={type} onChange={e => setType(e.target.value)}/>
+<Form.Label>Gender</Form.Label>
+ <Form.Select as="select" onChange={e => setGender(e.target.value)}>
+      <option>Select Option</option>
+      <option value="male" name="male">Male</option>
+      <option value="female" name="female">Female</option>
+    
+    </Form.Select>
+    </Form.Group>
+    <Form.Group className="mb-3" controlId="formBasicEmail" >
+ <Form.Label>User Type</Form.Label>
+ <Form.Select as="select" onChange={e => setType(e.target.value)}>
+      <option>Select Option</option>
+      <option value="owner" name="owner">Owner</option>
+      <option value="customer" name="customer">Customer</option>
+    
+    </Form.Select>
 </Form.Group>
 <Form.Group className="mb-3" controlId="formBasicPassword">
   <Form.Label>Password</Form.Label>
