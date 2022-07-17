@@ -12,19 +12,19 @@ const CustomerView=()=>{
     const uri = window.location;
   const encoded = decodeURIComponent(uri);
   const hash = encoded.split("/");
-  const gmail = hash[4];
+  const userid = hash[4];
   console.log(hash)
     const {loading,error,data} =useQuery(DISHES_QUERY);
     console.log(data)
-let userid=""
+
  const {data:data1}=useQuery(USERS_QUERY)
  console.log(data1)
 const usersrow=data1?.users
-const useridInfo=usersrow?.map((each)=>{
-    if(each.Email===gmail){
-         userid=each.Userid
-    }
-})
+// const useridInfo=usersrow?.map((each)=>{
+//     if(each.Email===gmail){
+//          userid=each.Userid
+//     }
+// })
 console.log(userid)
 const updateCache = (cache, { data }) => {
   const currentValue = cache.readQuery({

@@ -23,7 +23,7 @@ const Orders=()=>{
       
       
  return  <Accordion>
-  <Button type="submit" variant="outline-dark" style={{marginBottom:"20px"}}>Go to Menu List</Button>
+  {/* <Button type="submit" variant="outline-dark" style={{marginBottom:"20px"}}>Go to Menu List</Button> */}
  <h4>Orders</h4>
  {data?.Orders?.map((each)=>
     <Accordion.Item eventKey="0">
