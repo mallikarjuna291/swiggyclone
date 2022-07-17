@@ -38,7 +38,7 @@ navigate(`/customer/${each.Userid}`);
 
   }
  
- return  <Form  onSubmit={(event)=>handleSubmit(event,email,password)} style={{margin:'20%'}}>
+ return <div><Form  onSubmit={(event)=>handleSubmit(event,email,password)} style={{margin:'20%'}}>
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
@@ -54,7 +54,8 @@ navigate(`/customer/${each.Userid}`);
       </Form.Group>
     
       <Button variant="outline-dark" color="primary" value="Submit"  type="submit">Log in</Button>
+     
     </Form>
-
-
+    <Button variant="outline-dark" color="primary" value="Submit"  type="submit" onClick={navigate('/signup')}>Sign up</Button></div>
+ 
 }

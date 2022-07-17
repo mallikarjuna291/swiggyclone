@@ -29,9 +29,9 @@ function Home() {
     <div >
      
           
-          <Button variant="outline-dark" onClick={navigateLogin} style={{marginRight:"15px"}}>Login</Button>
+          {/* <Button variant="outline-dark" onClick={navigateLogin} style={{marginRight:"15px"}}>Login</Button>
            
-          <Button variant="outline-dark" onClick={navigatetosignup} style={{marginRight:"15px"}}>Sign Up</Button>
+          <Button variant="outline-dark" onClick={navigatetosignup} style={{marginRight:"15px"}}>Sign Up</Button> */}
          <div style={{marginBottom:"30px"}}></div>
           <Routes>
           <Route path="/login" element={<Login />} />

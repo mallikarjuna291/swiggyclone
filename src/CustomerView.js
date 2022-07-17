@@ -38,7 +38,7 @@ const updateCache = (cache, { data }) => {
 };
     function handleSubmit(event,variables) {
         event.preventDefault();
-       navigate(`/customer/${gmail}/orders`)
+       navigate(`/customer/${userid}/orders`)
         
       }
       const [addorders]=useMutation(INSERT_ORDERS)
