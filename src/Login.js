@@ -34,7 +34,7 @@ export const Login = () => {
     <img src={loginimage} style={{paddingLeft:'40%',height:'70%'}}/>
       <Form
         onSubmit={(event) => handleSubmit(event, email, password)}
-        style={{ margin: "20%" }}
+        style={{ margin: "20%",marginTop:"8%" }}
       >
        
         <Form.Group className="mb-3" controlId="formBasicEmail">

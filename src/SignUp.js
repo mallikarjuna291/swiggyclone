@@ -41,7 +41,7 @@ const Signup=()=>{
       }
 return <div> 
 <img src={signup} style={{paddingLeft:'40%',height:'70%'}}/>
-<Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%"}}>
+<Form onSubmit={(event)=>handleSubmit(event)} style={{margin:"12%",marginTop:"8%"}}>
 <Form.Group className="mb-3" controlId="formBasicPassword">
   <Form.Label>Name</Form.Label>
   <Form.Control type="text" placeholder="Enter name" name="name" value={name} required onChange={e => setName(e.target.value)}/>
