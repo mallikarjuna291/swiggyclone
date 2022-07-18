@@ -41,6 +41,10 @@ const CustomerView = () => {
     event.preventDefault();
     navigate(`/customer/${userid}/orders`);
   }
+  function handleClose(event) {
+    event.preventDefault();
+    navigate("/");
+  }
   const [addorders] = useMutation(INSERT_ORDERS, {
     update: updateCache,
   });
@@ -61,6 +65,7 @@ const CustomerView = () => {
   const row = data?.Dishes;
   return (
     <>
+    <div style={{display:'flex'}}>
       <Button
         type="submit"
         variant="outline-dark"
@@ -69,6 +74,15 @@ const CustomerView = () => {
       >
         Check Orders
       </Button>
+      <Button
+        type="submit"
+        variant="outline-dark"
+        onClick={handleClose}
+        style={{ marginBottom: "20px",marginLeft:'86%' }}
+      >
+        Log out
+      </Button>
+      </div>
       <div style={{ display: "flex", margin: "5px" }}>
           <h6 style={{ width: '24%'}}>S.No</h6>
           <h6 style={{ width:'24%' }}>Item Name</h6>

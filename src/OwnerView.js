@@ -4,7 +4,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
 import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 const OwnerView = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -61,7 +63,20 @@ const OwnerView = () => {
     addrestaurant({ variables });
     setName('');setDescription('');setPrice('')
   }
+  function handleClose(event) {
+    event.preventDefault();
+    navigate("/");
+  }
   return (
+    <>
+    <Button
+    type="submit"
+    variant="outline-dark"
+    onClick={handleClose}
+    style={{ marginBottom: "20px",marginLeft:'89%' }}
+  >
+    Log out
+  </Button>
     <Form onSubmit={handleSubmit}>
       <div style={{ display: "flex", paddingBottom: "15px" }}>
         <h6 style={{ flex: 1 }}>S.No</h6>
@@ -112,7 +127,7 @@ const OwnerView = () => {
       <Button variant="outline-primary" type="submit" value="Submit">
         Add item
       </Button>
-    </Form>
+    </Form></>
   );
 };
 

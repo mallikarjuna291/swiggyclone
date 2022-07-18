@@ -6,7 +6,7 @@ import { Accordion, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
-
+  const navigate = useNavigate();
   const uri = window.location;
   const encoded = decodeURIComponent(uri);
   const hash = encoded.split("/");
@@ -43,17 +43,22 @@ const Orders = () => {
   const navigatetoback = () => {
     navigate(`/customer/${userid}`);
   };
-
+  function handleClose(event) {
+    event.preventDefault();
+    navigate("/");
+  }
   function handleSubmit(event, orderid) {
     deleteorders({
       variables: {
         Orderid: orderid,
       },
     });
+  
   }
-  const navigate = useNavigate();
+ 
   return (
     <Accordion>
+    <div style={{display:"flex"}}>
       <Button
         type="submit"
         variant="outline-dark"
@@ -62,9 +67,18 @@ const Orders = () => {
       >
         Go to Menu List
       </Button>
+      <Button
+        type="submit"
+        variant="outline-dark"
+        onClick={handleClose}
+        style={{ marginBottom: "20px",marginLeft:'84%' }}
+      >
+        Log out
+      </Button>
+      </div>
       <h4>Orders</h4>
-      {filtereddata?.map((each) => (
-        <Accordion.Item eventKey="0">
+      {filtereddata?.map((each,index) => (
+        <Accordion.Item eventKey={index}>
           <Accordion.Header>{each.Name}</Accordion.Header>
           <Accordion.Body>
             <p>Price : {each.Price}</p>
