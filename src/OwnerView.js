@@ -52,9 +52,7 @@ const [type,setType]=useState("")
     update: updateCache,
    
   });
-const [updateStatus]=useMutation(UPDATE_STATUS,{
-  update:updateCachedishes
-})
+const [updateStatus]=useMutation(UPDATE_STATUS)
   const { data: data1 } = useQuery(DISHES_QUERY);
   const row = data1?.Dishes;
   var rows = row?.filter(function (item) {
