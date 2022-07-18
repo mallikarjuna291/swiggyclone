@@ -54,7 +54,9 @@ const statusdata=openedRestaurants?.map((each)=>{
       data: { Orders: [updatedData, ...currentValue.Orders] },
     });
   };
-  console.log(!arr[1]?.includes(data2?.Restaurants?.Restaurantid))
+
+ 
+
   function handleSubmit(event) {
     event.preventDefault();
     navigate(`/customer/${userid}/orders`);

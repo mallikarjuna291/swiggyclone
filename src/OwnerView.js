@@ -52,13 +52,24 @@ const [type,setType]=useState("")
     update: updateCache,
    
   });
-const [updateStatus]=useMutation(UPDATE_STATUS)
+const [updateStatus]=useMutation(UPDATE_STATUS,{
+  update:updateCachedishes
+})
   const { data: data1 } = useQuery(DISHES_QUERY);
   const row = data1?.Dishes;
   var rows = row?.filter(function (item) {
     return item.Restaurantid === restaurantid;
   });
-
+  const updateCachedishes = (cache, { data }) => {
+    const currentValue = cache.readQuery({
+      query: RESTAURANTS_QUERY,
+    });
+    const updatedData = data;
+    cache.writeQuery({
+      query: RESTAURANTS_QUERY,
+      data: { Orders: [updatedData, ...currentValue.Orders] },
+    });
+  };
   function handleSubmit(event, variables) {
     event.preventDefault();
     addrestaurant({ variables });
@@ -69,6 +80,7 @@ const [updateStatus]=useMutation(UPDATE_STATUS)
     navigate("/");
   }
   function handlestatus(event,type){
+   
     event.preventDefault();
     updateStatus({ variables:{
       Restaurantid:restaurantid,
