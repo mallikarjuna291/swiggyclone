@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import { INSERT_ORDERS } from "./Queries/INSERT_ORDERS";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
+import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location;
@@ -17,14 +18,30 @@ const CustomerView = () => {
   let extracteduserid=""
 
   const { loading, error, data } = useQuery(DISHES_QUERY);
+  const row = data?.Dishes;
   const {data:data1}=useQuery(USERS_QUERY)
-  const userinfo=data1?.users?.map((each)=>{
-   
+  const {data:data2}=useQuery(RESTAURANTS_QUERY)
+  const openedRestaurants=data2?.Restaurants?.filter((each)=>{
+    return each.Status==="opened"
+  })
+  const arr=[]
+const statusdata=openedRestaurants?.map((each)=>{
+  arr.push(each?.Restaurantid)
+})
+  const userinfo=data1?.users?.map((each)=>{   
     if(each.Email===hash[4]){
       extracteduserid=each.Userid
-    }
-  
+    }  
   })
+
+
+  const filteredByValue=data?.Dishes?.filter((each)=>{
+
+    if(arr.includes(each.Restaurantid)){
+      return each.Restaurantid
+    }
+  })
+  
    const finaluserid=hash[4]?.includes('@')?extracteduserid:userid
 
   const updateCache = (cache, { data }) => {
@@ -37,6 +54,7 @@ const CustomerView = () => {
       data: { Orders: [updatedData, ...currentValue.Orders] },
     });
   };
+  console.log(!arr[1]?.includes(data2?.Restaurants?.Restaurantid))
   function handleSubmit(event) {
     event.preventDefault();
     navigate(`/customer/${userid}/orders`);
@@ -62,7 +80,7 @@ const CustomerView = () => {
       },
     });
   }
-  const row = data?.Dishes;
+ 
   return (
     <>
     <div style={{display:'flex'}}>
@@ -90,12 +108,13 @@ const CustomerView = () => {
           <h6 style={{ width: '24%' }}>Price</h6>
          
         </div>
-      {row?.map((value, index) => (
+      { filteredByValue?.map((value, index) => (
         <div style={{ display: "flex", margin: "5px" }}>
           <p style={{ flex: 1 }}>{index + 1}</p>
           <p style={{ flex: 1 }}>{value.Name}</p>
           <p style={{ flex: 1 }}>{value.Description}</p>
           <p style={{ flex: 1 }}>{value.Price}</p>
+         
           <Button
             variant="outline-primary"
             type="submit"
