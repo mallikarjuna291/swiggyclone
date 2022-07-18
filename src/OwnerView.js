@@ -78,7 +78,7 @@ const [updateStatus]=useMutation(UPDATE_STATUS)
   return (<>
   <div style={{display:"flex"}}>
   <Form.Select as="select" onChange={e => setType(e.target.value)} required style={{width:'150px',height:"50px"}}>
-      <option>Select Option</option>
+      <option>Select Status</option>
       <option value="opened" name="opened">Open</option>
       <option value="closed" name="closed">Close</option>
     
