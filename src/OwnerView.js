@@ -5,12 +5,13 @@ import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
 import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
 const OwnerView = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-
+const [type,setType]=useState("")
   const updateCache = (cache, { data }) => {
     const currentValue = cache.readQuery({
       query: DISHES_QUERY,
@@ -51,7 +52,7 @@ const OwnerView = () => {
     update: updateCache,
    
   });
-
+const [updateStatus]=useMutation(UPDATE_STATUS)
   const { data: data1 } = useQuery(DISHES_QUERY);
   const row = data1?.Dishes;
   var rows = row?.filter(function (item) {
@@ -67,16 +68,38 @@ const OwnerView = () => {
     event.preventDefault();
     navigate("/");
   }
-  return (
-    <>
+  function handlestatus(event,type){
+    event.preventDefault();
+    updateStatus({ variables:{
+      Restaurantid:restaurantid,
+      Status:type
+    } });
+  }
+  return (<>
+  <div style={{display:"flex"}}>
+  <Form.Select as="select" onChange={e => setType(e.target.value)} required style={{width:'150px',height:"50px"}}>
+      <option>Select Option</option>
+      <option value="opened" name="opened">Open</option>
+      <option value="closed" name="closed">Close</option>
+    
+    </Form.Select>
+  
+    <Button
+    type="submit"
+    variant="outline-dark"
+    onClick={(event)=>handlestatus(event,type)}
+    style={{ marginBottom: "20px",height:'50px' }}>Click to confirm
+    </Button>
+
     <Button
     type="submit"
     variant="outline-dark"
     onClick={handleClose}
-    style={{ marginBottom: "20px",marginLeft:'89%' }}
+    style={{ marginBottom: "20px",marginLeft:'70%' }}
   >
     Log out
   </Button>
+  </div>
     <Form onSubmit={handleSubmit}>
       <div style={{ display: "flex", paddingBottom: "15px" }}>
         <h6 style={{ flex: 1 }}>S.No</h6>
@@ -91,7 +114,9 @@ const OwnerView = () => {
           <p style={{ flex: 1 }}>{value.Name}</p>
           <p style={{ flex: 1 }}>{value.Description}</p>
           <p style={{ flex: 1 }}>{value.Price}</p>
+         
         </div>
+        
       ))}
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Description</Form.Label>
