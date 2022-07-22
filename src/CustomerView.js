@@ -9,6 +9,9 @@ import { INSERT_ORDERS } from "./Queries/INSERT_ORDERS";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+import Orders from "./Orders";
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location;
@@ -82,28 +85,22 @@ const statusdata=openedRestaurants?.map((each)=>{
       },
     });
   }
- 
+  function goToDishes(){
+    <Link to={`/customer/${userid}/orders`}>Orders</Link>
+    navigate(`/customer/${userid}`)
+  }
+
+  
+  function goToOrders(){
+    navigate(`/customer/${userid}/orders`)
+  } 
+  const pages = ["Orders"]
+  
   return (
     <>
-    <div style={{display:'flex'}}>
-      <Button
-        type="submit"
-        variant="outline-dark"
-        onClick={handleSubmit}
-        style={{ marginBottom: "20px" }}
-      >
-        Check Orders
-      </Button>
-      <Button
-        type="submit"
-        variant="outline-dark"
-        onClick={handleClose}
-        style={{ marginBottom: "20px",marginLeft:'86%' }}
-      >
-        Log out
-      </Button>
-      </div>
-      <div style={{ display: "flex", margin: "5px" }}>
+     <Navbar pages={pages} handleClick={goToOrders}/>
+  
+      <div style={{ display: "flex", margin: "5px" ,marginTop:'30px'}}>
           <h6 style={{ width: '24%'}}>S.No</h6>
           <h6 style={{ width:'24%' }}>Item Name</h6>
           <h6 style={{ width: '24%'}}>Description</h6>

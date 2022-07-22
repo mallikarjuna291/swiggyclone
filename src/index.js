@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, InMemoryCache, ApolloProvider,  } from '@apollo/client';
-import { BrowserRouter  } from 'react-router-dom';
+
 import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
@@ -26,9 +26,9 @@ Sentry.init({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
-  <BrowserRouter> 
+
     <App />
-    </BrowserRouter>
+ 
   </ApolloProvider>
 );
 

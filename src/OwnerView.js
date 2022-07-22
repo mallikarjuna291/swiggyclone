@@ -6,12 +6,17 @@ import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+
+import Select from '@mui/material/Select';
+import Navbar from "./Navbar";
 const OwnerView = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-const [type,setType]=useState("")
+
   const updateCache = (cache, { data }) => {
     const currentValue = cache.readQuery({
       query: DISHES_QUERY,
@@ -41,7 +46,12 @@ const [type,setType]=useState("")
      
     }
   });
+ const arr=data?.Restaurants.filter((each)=>{
+  return restaurantid===each.Restaurantid
+})
 
+const status=arr?.[0]?.Status
+const [type,setType]=useState("")
   const [addrestaurant] = useMutation(INSERT_DISHES, {
     variables: {
       Description: description,
@@ -85,15 +95,24 @@ const [updateStatus]=useMutation(UPDATE_STATUS)
       Status:type
     } });
   }
+
   return (<>
+  <Navbar/>
   <div style={{display:"flex"}}>
-  <Form.Select as="select" onChange={e => setType(e.target.value)} required style={{width:'150px',height:"50px"}}>
-      <option>Select Status</option>
-      <option value="opened" name="opened">Open</option>
-      <option value="closed" name="closed">Close</option>
-    
-    </Form.Select>
-  
+
+    <h6 id="demo-simple-select-label" style={{marginTop:'10px',marginRight:'10px'}}>Select Status</h6>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={type}
+          label={type}
+          onChange={e => setType(e.target.value)} 
+          style={{width:'150px',height:'50px'}}
+        >
+          <MenuItem value="opened">Open</MenuItem>
+          <MenuItem value="closed">Close</MenuItem>
+          
+        </Select>
     <Button
     type="submit"
     variant="outline-dark"
@@ -101,15 +120,9 @@ const [updateStatus]=useMutation(UPDATE_STATUS)
     style={{ marginBottom: "20px",height:'50px' }}>Click to confirm
     </Button>
 
-    <Button
-    type="submit"
-    variant="outline-dark"
-    onClick={handleClose}
-    style={{ marginBottom: "20px",marginLeft:'70%' }}
-  >
-    Log out
-  </Button>
+   
   </div>
+  <p>current status : {status}</p>
     <Form onSubmit={handleSubmit}>
       <div style={{ display: "flex", paddingBottom: "15px" }}>
         <h6 style={{ flex: 1 }}>S.No</h6>

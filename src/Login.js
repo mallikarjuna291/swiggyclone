@@ -4,6 +4,7 @@ import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { useNavigate} from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import loginimage from './Images/login.jpg'
+import Navbar from "./Navbar";
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -21,8 +22,10 @@ export const Login = () => {
     data.users.map((each) => {
       if (email === each.Email && password === each.Password) {
         if (each.Type === "customer") {
-          navigate(`/customer/${each.Userid}`);
+     
+           navigate(`/customer/${each.Userid}`);
         } else {
+          <Navbar/>
           navigate(`/owner/${each.Userid}`);
         }
       }
@@ -31,6 +34,7 @@ export const Login = () => {
 
   return (
     <div>
+    
     <img src={loginimage} style={{paddingLeft:'40%',height:'70%'}}/>
       <Form
         onSubmit={(event) => handleSubmit(event, email, password)}

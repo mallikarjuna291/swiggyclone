@@ -4,6 +4,7 @@ import { DELETE_ORDERS } from "./Queries/DELETE_ORDERS";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { Accordion, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
   const navigate = useNavigate();
@@ -40,13 +41,7 @@ const Orders = () => {
   const [deleteorders] = useMutation(DELETE_ORDERS, {
     update: updateCache,
   });
-  const navigatetoback = () => {
-    navigate(`/customer/${userid}`);
-  };
-  function handleClose(event) {
-    event.preventDefault();
-    navigate("/");
-  }
+  
   function handleSubmit(event, orderid) {
     deleteorders({
       variables: {
@@ -55,28 +50,17 @@ const Orders = () => {
     });
   
   }
+  function goToDishes(){
+    navigate(`/customer/${userid}`)
+  }
  
-  return (
+ 
+  const pages = ["Dishes List"]
+  return (<>
+     <Navbar pages={pages} handleClick={goToDishes}/>
     <Accordion>
-    <div style={{display:"flex"}}>
-      <Button
-        type="submit"
-        variant="outline-dark"
-        style={{ marginBottom: "20px" }}
-        onClick={navigatetoback}
-      >
-        Go to Menu List
-      </Button>
-      <Button
-        type="submit"
-        variant="outline-dark"
-        onClick={handleClose}
-        style={{ marginBottom: "20px",marginLeft:'84%' }}
-      >
-        Log out
-      </Button>
-      </div>
-      <h4>Orders</h4>
+   
+      <h4 style={{margin:'20px'}}>List of your orders</h4>
       {filtereddata?.map((each,index) => (
         <Accordion.Item eventKey={index}>
           <Accordion.Header>{each.Name}</Accordion.Header>
@@ -95,6 +79,7 @@ const Orders = () => {
         </Accordion.Item>
       ))}
     </Accordion>
+    </>
   );
 };
 
