@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location;
@@ -132,11 +133,9 @@ const statusdata=openedRestaurants?.map((each)=>{
       </div>
       </CardContent>
       <CardActions>
-      <Button
-            variant="outline-primary"
-            type="submit"
+      <Button variant="outlined" startIcon={<DeliveryDiningIcon />} type="submit"
             value={value.Restaurantid}
-            style={{color:'blue'}}
+            style={{color:'blue',marginLeft:'10px'}}
             onClick={(event) =>
               handleClick(
                 event,
@@ -146,10 +145,10 @@ const statusdata=openedRestaurants?.map((each)=>{
                 value.Price,
                 userid
               )
-            }
-          >
-            Order
-          </Button>
+            }>
+  Order
+</Button>
+   
       </CardActions>
     </Card>
      })}
