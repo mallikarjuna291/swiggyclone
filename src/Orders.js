@@ -2,8 +2,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { DELETE_ORDERS } from "./Queries/DELETE_ORDERS";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
-import { Accordion, Button } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Navbar from "./Navbar";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
@@ -67,14 +69,13 @@ const Orders = () => {
           <Accordion.Body>
             <p>Price : {each.Price}</p>
             <p>Restaurant id : {each.Restaurantid}</p>
-            <Button
-              type="submit"
-              variant="outline-dark"
-              style={{ marginBottom: "20px" }}
-              onClick={(event) => handleSubmit(event, each.Orderid)}
-            >
-              Cancel
-            </Button>
+            <Button variant="outlined"  type="submit"
+         
+             
+              onClick={(event) => handleSubmit(event, each.Orderid)} startIcon={<CancelIcon />} style={{color:'#C84B31'}}>
+  Cancel
+</Button>
+            
           </Accordion.Body>
         </Accordion.Item>
       ))}
