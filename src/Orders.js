@@ -2,10 +2,14 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { DELETE_ORDERS } from "./Queries/DELETE_ORDERS";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
-import { Accordion } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Navbar from "./Navbar";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
@@ -60,14 +64,20 @@ const Orders = () => {
   const pages = ["Dishes List"]
   return (<>
      <Navbar pages={pages} handleClick={goToDishes}/>
-    <Accordion>
-   
-      <h4 style={{margin:'20px'}}>List of your orders</h4>
-      {filtereddata?.map((each,index) => (
-        <Accordion.Item eventKey={index}>
-          <Accordion.Header>{each.Name}</Accordion.Header>
-          <Accordion.Body>
-            <p>Price : {each.Price}</p>
+     <Typography variant="h5" style={{marginTop:'10px',marginLeft:'13px'}}>
+  List of orders
+</Typography>;
+     {filtereddata?.map((each) => (
+     <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>{each.Name}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <p>Price : {each.Price}</p>
             <p>Restaurant id : {each.Restaurantid}</p>
             <Button variant="outlined"  type="submit"
          
@@ -75,11 +85,10 @@ const Orders = () => {
               onClick={(event) => handleSubmit(event, each.Orderid)} startIcon={<CancelIcon />} style={{color:'#C84B31'}}>
   Cancel
 </Button>
-            
-          </Accordion.Body>
-        </Accordion.Item>
-      ))}
-    </Accordion>
+        </AccordionDetails>
+      </Accordion>  ))}
+
+    
     </>
   );
 };
