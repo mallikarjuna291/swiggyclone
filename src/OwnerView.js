@@ -4,12 +4,10 @@ import { useMutation, useQuery } from "@apollo/client";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
 import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form } from "react-bootstrap";
-import Button from "@mui/material/Button";
+import {Button,MenuItem,Select} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
-import MenuItem from "@mui/material/MenuItem";
 
-import Select from "@mui/material/Select";
 import Navbar from "./Navbar";
 const OwnerView = () => {
   const navigate = useNavigate();
@@ -127,7 +125,8 @@ const OwnerView = () => {
         </Select>
         <Button
           type="submit"
-          variant="outline-dark"
+          variant="outlined"
+           color="primary"
           onClick={(event) => handlestatus(event, type)}
           style={{ marginBottom: "20px", height: "50px" }}
         >
@@ -182,7 +181,7 @@ const OwnerView = () => {
           />
         </Form.Group>
 
-        <Button variant="outline-primary" type="submit" value="Submit">
+        <Button  variant="outlined" type="submit" value="Submit"    style={{ color: "blue"}}>
           Add item
         </Button>
       </Form>
