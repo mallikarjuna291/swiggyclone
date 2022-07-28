@@ -5,13 +5,13 @@ import { INSERT_ORDERS } from "./Queries/INSERT_ORDERS";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
+import { Card, CardActions, Button, Grid, CardContent } from "@mui/material";
+
 import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
+
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import { Box, maxWidth } from "@mui/system";
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location; // window.location gives us the url
@@ -93,91 +93,99 @@ const CustomerView = () => {
   return (
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
+      <Box sx={{ flexGrow: 1 }}>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 6 }}
+        columns={{ xs: 8, sm: 6, md: 6 }}
+        style={{marginLeft:'1%',marginTop:'3%'}}
+      >
+        {filteredByValue?.map((value) => {
+          return (
+            <Card sx={{ minWidth: 250, maxWidth:250 }}>
+              <CardContent>
+                <div style={{ display: "flex" }}>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px", marginRight: "60px" }}
+                  >
+                    Name
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px" }}
+                  >
+                    {value.Name}
+                  </Typography>
+                </div>
 
-      {filteredByValue?.map((value) => {
-        return (
-          <Card sx={{ minWidth: 150 }}>
-            <CardContent>
-              <div style={{ display: "flex" }}>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px", marginRight: "60px" }}
+                <div style={{ display: "flex" }}>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px", marginRight: "23px" }}
+                  >
+                    Description
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px" }}
+                  >
+                    {value.Description}
+                  </Typography>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px", marginRight: "60px" }}
+                  >
+                    Price
+                  </Typography>
+                  <Typography
+                    sx={{ fontSize: 14 }}
+                    color="text.secondary"
+                    gutterBottom
+                    style={{ margin: "10px" }}
+                  >
+                    {value.Price}
+                  </Typography>
+                </div>
+              </CardContent>
+              <CardActions>
+                <Button
+                  variant="outlined"
+                  startIcon={<DeliveryDiningIcon />}
+                  type="submit"
+                  value={value.Restaurantid}
+                  style={{ color: "blue", marginLeft: "10px" }}
+                  onClick={(event) =>
+                    handleClick(
+                      event,
+                      value.Restaurantid,
+                      value.Name,
+                      value.Itemid,
+                      value.Price,
+                      userid
+                    )
+                  }
                 >
-                  Name
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px" }}
-                >
-                  {value.Name}
-                </Typography>
-              </div>
-
-              <div style={{ display: "flex" }}>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px", marginRight: "23px" }}
-                >
-                  Description
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px" }}
-                >
-                  {value.Description}
-                </Typography>
-              </div>
-              <div style={{ display: "flex" }}>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px", marginRight: "60px" }}
-                >
-                  Price
-                </Typography>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                  style={{ margin: "10px" }}
-                >
-                  {value.Price}
-                </Typography>
-              </div>
-            </CardContent>
-            <CardActions>
-              <Button
-                variant="outlined"
-                startIcon={<DeliveryDiningIcon />}
-                type="submit"
-                value={value.Restaurantid}
-                style={{ color: "blue", marginLeft: "10px" }}
-                onClick={(event) =>
-                  handleClick(
-                    event,
-                    value.Restaurantid,
-                    value.Name,
-                    value.Itemid,
-                    value.Price,
-                    userid
-                  )
-                }
-              >
-                Order
-              </Button>
-            </CardActions>
-          </Card>
-        );
-      })}
+                  Order
+                </Button>
+              </CardActions>
+            </Card>
+          );
+        })}
+      </Grid>
+      </Box>
     </>
   );
 };
