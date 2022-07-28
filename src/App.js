@@ -6,6 +6,9 @@ import CustomerView from './CustomerView';
 import  OwnerView  from './OwnerView';
 import Orders from './Orders';
 import {Routes, Route} from 'react-router-dom';
+
+// Route is used to specify paths which helps us to change views
+
 function App() {
   
   return (
