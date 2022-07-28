@@ -93,15 +93,11 @@ const CustomerView = () => {
   return (
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 6 }}
-        columns={{ xs: 8, sm: 6, md: 6 }}
-        style={{marginLeft:'1%',marginTop:'3%'}}
-      >
+   
+      <Grid container spacing={{ xs: 4, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {filteredByValue?.map((value) => {
           return (
+            <Grid item xs={4} sm={8} md={2}>
             <Card sx={{ minWidth: 250, maxWidth:250 }}>
               <CardContent>
                 <div style={{ display: "flex" }}>
@@ -182,10 +178,11 @@ const CustomerView = () => {
                 </Button>
               </CardActions>
             </Card>
+            </Grid>
           );
         })}
       </Grid>
-      </Box>
+      
     </>
   );
 };

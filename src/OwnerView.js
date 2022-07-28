@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import { INSERT_DISHES } from "./Queries/INSERT_DISHES";
 import { useMutation, useQuery } from "@apollo/client";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
@@ -39,11 +39,10 @@ const OwnerView = () => {
   const arr = data?.Restaurants.filter((each) => {
     return restaurantid === each.Restaurantid;
   });
-
   const status = arr?.[0]?.Status;
   const [type, setType] = useState("");
 
-  const updateCachedishes = (cache, { data }) => {
+  const updateCacheRestaurants = (cache, { data }) => {
     const currentValue = cache.readQuery({
       query: RESTAURANTS_QUERY,
     });
@@ -54,6 +53,17 @@ const OwnerView = () => {
     });
   };
 
+
+  const updateCachedishes = (cache, { data }) => {
+    const currentValue = cache.readQuery({
+      query: DISHES_QUERY,
+    });
+    const updatedData = data;
+    cache.writeQuery({
+      query: DISHES_QUERY,
+      data: { Dishes: [updatedData, ...currentValue.Dishes] },
+    });
+  };
   // when clicks on add orders , INSERT_DISHES will be called and dishes will be inserted
   const [addrestaurant] = useMutation(INSERT_DISHES, {
     variables: {
@@ -88,8 +98,11 @@ const OwnerView = () => {
         Restaurantid: restaurantid,
         Status: type,
       },
+      update:updateCacheRestaurants
     });
   }
+
+ 
 
   return (
     <div >
