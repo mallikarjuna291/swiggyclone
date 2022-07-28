@@ -17,16 +17,6 @@ const OwnerView = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
-  const updateCache = (cache, { data }) => {
-    const currentValue = cache.readQuery({
-      query: DISHES_QUERY,
-    });
-    const updatedData = data;
-    cache.writeQuery({
-      query: DISHES_QUERY,
-      data: { Dishes: [updatedData, ...currentValue.Dishes] },
-    });
-  };
 
   const { loading, error, data } = useQuery(RESTAURANTS_QUERY);
   let restaurantid = "";
@@ -53,6 +43,17 @@ const OwnerView = () => {
   const status = arr?.[0]?.Status;
   const [type, setType] = useState("");
 
+  const updateCachedishes = (cache, { data }) => {
+    const currentValue = cache.readQuery({
+      query: RESTAURANTS_QUERY,
+    });
+    const updatedData = data;
+    cache.writeQuery({
+      query: RESTAURANTS_QUERY,
+      data: { Orders: [updatedData, ...currentValue.Orders] },
+    });
+  };
+
   // when clicks on add orders , INSERT_DISHES will be called and dishes will be inserted
   const [addrestaurant] = useMutation(INSERT_DISHES, {
     variables: {
@@ -71,16 +72,7 @@ const OwnerView = () => {
   var rows = row?.filter(function (item) {
     return item.Restaurantid === restaurantid;
   });
-  const updateCachedishes = (cache, { data }) => {
-    const currentValue = cache.readQuery({
-      query: RESTAURANTS_QUERY,
-    });
-    const updatedData = data;
-    cache.writeQuery({
-      query: RESTAURANTS_QUERY,
-      data: { Orders: [updatedData, ...currentValue.Orders] },
-    });
-  };
+
   function handleSubmit(event, variables) {
     event.preventDefault();
     addrestaurant({ variables });
@@ -100,9 +92,9 @@ const OwnerView = () => {
   }
 
   return (
-    <>
+    <div >
       <Navbar />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex" ,marginLeft:'0.5%',marginTop:'1%'}}>
         <h6
           id="demo-simple-select-label"
           style={{ marginTop: "10px", marginRight: "10px" }}
@@ -113,7 +105,7 @@ const OwnerView = () => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={type}
-          label={type}
+          label="select"
           onChange={(e) => setType(e.target.value)}
           style={{ width: "150px", height: "50px" }}
         >
@@ -129,8 +121,8 @@ const OwnerView = () => {
           Click to confirm
         </Button>
       </div>
-      <p>current status : {status}</p>
-      <Form onSubmit={handleSubmit}>
+      <p style={{marginLeft:'0.5%'}}>current status : {status}</p>
+      <Form onSubmit={handleSubmit} style={{marginLeft:'0.5%'}}>
         <div style={{ display: "flex", paddingBottom: "15px" }}>
           <h6 style={{ flex: 1 }}>S.No</h6>
           <h6 style={{ flex: 1 }}>Name</h6>
@@ -181,7 +173,7 @@ const OwnerView = () => {
           Add item
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
 
