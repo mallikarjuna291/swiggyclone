@@ -11,6 +11,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Navbar from "./Navbar";
+import Loader from "./Loader";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const Orders = () => {
   function goToDishes() {
     navigate(`/customer/${userid}`);
   }
-
+  if (loading) return <Loader />;
   const pages = ["Dishes List"];
   return (
     <>

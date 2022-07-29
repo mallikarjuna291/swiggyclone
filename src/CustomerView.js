@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
 
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-import { Box, maxWidth } from "@mui/system";
+import Loader from "./Loader";
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location; // window.location gives us the url
@@ -21,6 +21,7 @@ const CustomerView = () => {
   let extracteduserid = "";
 
   const { loading, error, data } = useQuery(DISHES_QUERY);
+
   const row = data?.Dishes;
   const { data: data1 } = useQuery(USERS_QUERY);
   const { data: data2 } = useQuery(RESTAURANTS_QUERY);
@@ -42,7 +43,6 @@ const CustomerView = () => {
       extracteduserid = each.Userid;
     }
   });
-
   // this function helps to get list of open restaurants from restaurants table
   const filteredByValue = data?.Dishes?.filter((each) => {
     if (arr.includes(each.Restaurantid)) {
@@ -51,7 +51,6 @@ const CustomerView = () => {
   });
 
   const finaluserid = hash[4]?.includes("@") ? extracteduserid : userid;
-
   // helps to update query when we change/update anything related to it
   const updateCache = (cache, { data }) => {
     const currentValue = cache.readQuery({
@@ -68,7 +67,6 @@ const CustomerView = () => {
   const [addorders] = useMutation(INSERT_ORDERS, {
     update: updateCache,
   });
-
   // this function triggers when user clicks on order button
   function handleClick(event, restaurantid, name, itemid, price, userid) {
     event.preventDefault();
@@ -84,6 +82,7 @@ const CustomerView = () => {
       },
     });
   }
+  if (loading) return <Loader />;
 
   //this function trigger when we click on orders in navbar and to redirect
   function goToOrders() {
@@ -93,96 +92,95 @@ const CustomerView = () => {
   return (
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
-   
-      <Grid container style={{marginLeft:'1%'}} spacing={4}>
+
+      <Grid container spacing={4}>
         {filteredByValue?.map((value) => {
           return (
-            <Grid item >
-            <Card sx={{ minWidth: 250, maxWidth:250 }}>
-              <CardContent>
-                <div style={{ display: "flex" }}>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px", marginRight: "60px" }}
-                  >
-                    Name
-                  </Typography>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px" }}
-                  >
-                    {value.Name}
-                  </Typography>
-                </div>
+            <Grid item>
+              <Card sx={{ minWidth: 250, maxWidth: 250 }}>
+                <CardContent>
+                  <div style={{ display: "flex" }}>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px", marginRight: "60px" }}
+                    >
+                      Name
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px" }}
+                    >
+                      {value.Name}
+                    </Typography>
+                  </div>
 
-                <div style={{ display: "flex" }}>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px", marginRight: "23px" }}
+                  <div style={{ display: "flex" }}>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px", marginRight: "23px" }}
+                    >
+                      Description
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px" }}
+                    >
+                      {value.Description}
+                    </Typography>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px", marginRight: "60px" }}
+                    >
+                      Price
+                    </Typography>
+                    <Typography
+                      sx={{ fontSize: 14 }}
+                      color="text.secondary"
+                      gutterBottom
+                      style={{ margin: "10px" }}
+                    >
+                      {value.Price}
+                    </Typography>
+                  </div>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    variant="outlined"
+                    startIcon={<DeliveryDiningIcon />}
+                    type="submit"
+                    value={value.Restaurantid}
+                    style={{ color: "blue", marginLeft: "10px" }}
+                    onClick={(event) =>
+                      handleClick(
+                        event,
+                        value.Restaurantid,
+                        value.Name,
+                        value.Itemid,
+                        value.Price,
+                        userid
+                      )
+                    }
                   >
-                    Description
-                  </Typography>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px" }}
-                  >
-                    {value.Description}
-                  </Typography>
-                </div>
-                <div style={{ display: "flex" }}>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px", marginRight: "60px" }}
-                  >
-                    Price
-                  </Typography>
-                  <Typography
-                    sx={{ fontSize: 14 }}
-                    color="text.secondary"
-                    gutterBottom
-                    style={{ margin: "10px" }}
-                  >
-                    {value.Price}
-                  </Typography>
-                </div>
-              </CardContent>
-              <CardActions>
-                <Button
-                  variant="outlined"
-                  startIcon={<DeliveryDiningIcon />}
-                  type="submit"
-                  value={value.Restaurantid}
-                  style={{ color: "blue", marginLeft: "10px" }}
-                  onClick={(event) =>
-                    handleClick(
-                      event,
-                      value.Restaurantid,
-                      value.Name,
-                      value.Itemid,
-                      value.Price,
-                      userid
-                    )
-                  }
-                >
-                  Order
-                </Button>
-              </CardActions>
-            </Card>
+                    Order
+                  </Button>
+                </CardActions>
+              </Card>
             </Grid>
           );
         })}
       </Grid>
-      
     </>
   );
 };

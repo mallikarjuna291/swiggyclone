@@ -1,20 +1,25 @@
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { INSERT_DISHES } from "./Queries/INSERT_DISHES";
 import { useMutation, useQuery } from "@apollo/client";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
 import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
 import { Form } from "react-bootstrap";
-import {Button,MenuItem,Select} from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  Select,
+  unstable_composeClasses,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
 
 import Navbar from "./Navbar";
+import Loader from "./Loader";
 const OwnerView = () => {
-  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-
+  const [statusMessage, setstatusMessage] = useState(false);
 
   const { loading, error, data } = useQuery(RESTAURANTS_QUERY);
   let restaurantid = "";
@@ -51,7 +56,6 @@ const OwnerView = () => {
     });
   };
 
-
   const updateCachedishes = (cache, { data }) => {
     const currentValue = cache.readQuery({
       query: DISHES_QUERY,
@@ -80,7 +84,6 @@ const OwnerView = () => {
   var rows = row?.filter(function (item) {
     return item.Restaurantid === restaurantid;
   });
-
   function handleSubmit(event, variables) {
     event.preventDefault();
     addrestaurant({ variables });
@@ -88,7 +91,10 @@ const OwnerView = () => {
     setDescription("");
     setPrice("");
   }
-
+  if (loading) return <Loader />;
+  const statusmessage = () => {
+    return <div>cool</div>;
+  };
   function handlestatus(event, type) {
     event.preventDefault();
     updateStatus({
@@ -96,16 +102,19 @@ const OwnerView = () => {
         Restaurantid: restaurantid,
         Status: type,
       },
-      update:updateCacheRestaurants
+
+      update: updateCacheRestaurants,
     });
+    setstatusMessage(true);
+    setTimeout(() => {
+      setstatusMessage(false);
+    }, 5000);
   }
 
- 
-
   return (
-    <div >
+    <div>
       <Navbar />
-      <div style={{ display: "flex" ,marginLeft:'0.5%',marginTop:'1%'}}>
+      <div style={{ display: "flex", marginLeft: "0.5%", marginTop: "1%" }}>
         <h6
           id="demo-simple-select-label"
           style={{ marginTop: "10px", marginRight: "10px" }}
@@ -126,15 +135,20 @@ const OwnerView = () => {
         <Button
           type="submit"
           variant="outlined"
-           color="primary"
+          color="primary"
           onClick={(event) => handlestatus(event, type)}
           style={{ marginBottom: "20px", height: "50px" }}
         >
           Click to confirm
         </Button>
+        {statusMessage && (
+          <div style={{ margin: "10px", color: "blue" }}>
+            Updated status.please refresh page
+          </div>
+        )}
       </div>
-      <p style={{marginLeft:'0.5%'}}>current status : {status}</p>
-      <Form onSubmit={handleSubmit} style={{marginLeft:'0.5%'}}>
+      <p style={{ marginLeft: "0.5%" }}>current status : {status}</p>
+      <Form onSubmit={handleSubmit} style={{ marginLeft: "0.5%" }}>
         <div style={{ display: "flex", paddingBottom: "15px" }}>
           <h6 style={{ flex: 1 }}>S.No</h6>
           <h6 style={{ flex: 1 }}>Name</h6>
@@ -181,7 +195,12 @@ const OwnerView = () => {
           />
         </Form.Group>
 
-        <Button  variant="outlined" type="submit" value="Submit"    style={{ color: "blue"}}>
+        <Button
+          variant="outlined"
+          type="submit"
+          value="Submit"
+          style={{ color: "blue" }}
+        >
           Add item
         </Button>
       </Form>

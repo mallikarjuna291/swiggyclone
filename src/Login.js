@@ -4,14 +4,16 @@ import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import loginimage from "./Images/login.jpg";
+
 import Navbar from "./Navbar";
+import Loader from "./Loader";
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loading, error, data } = useQuery(USERS_QUERY);
-
-  if (loading) return <p>Loading...</p>;
+  const [errorlogin, setError] = useState(false);
+  if (loading) return <Loader />;
   if (error) return <p>Something went wrong</p>;
 
   // when we click on signup this function will trigger and helps us to navigate to signup page
@@ -31,9 +33,14 @@ export const Login = () => {
         if (each.Type === "customer") {
           navigate(`/customer/${each.Userid}`);
         } else {
-          <Navbar />;
           navigate(`/owner/${each.Userid}`);
         }
+      } else {
+        setError(true);
+
+        setTimeout(() => {
+          setError(false);
+        }, 5000);
       }
     });
   }
@@ -86,6 +93,11 @@ export const Login = () => {
         >
           Sign Up
         </Button>
+        {errorlogin && (
+          <div style={{ color: "red", marginTop: "5px" }}>
+            Please check Username and password!
+          </div>
+        )}
       </Form>
     </div>
   );

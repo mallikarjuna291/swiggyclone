@@ -18,7 +18,7 @@ const Navbar = (props) => {
 
   const pages = props.pages;
   const handleClick = props.handleClick;
-  
+
   return (
     <AppBar position="static" sx={{ bgcolor: "#FBB454" }}>
       <Container maxWidth="xl">
@@ -26,14 +26,11 @@ const Navbar = (props) => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
-              marginLeft: "-18px",
               color: "inherit",
               textDecoration: "none",
             }}
