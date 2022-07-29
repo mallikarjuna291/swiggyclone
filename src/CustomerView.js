@@ -94,10 +94,10 @@ const CustomerView = () => {
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
    
-      <Grid container spacing={{ xs: 4, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container style={{marginLeft:'1%'}}>
         {filteredByValue?.map((value) => {
           return (
-            <Grid item xs={4} sm={8} md={2}>
+            <Grid item >
             <Card sx={{ minWidth: 250, maxWidth:250 }}>
               <CardContent>
                 <div style={{ display: "flex" }}>
