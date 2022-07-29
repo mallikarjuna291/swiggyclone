@@ -94,7 +94,7 @@ const CustomerView = () => {
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
    
-      <Grid container style={{marginLeft:'1%'}}>
+      <Grid container style={{marginLeft:'1%'}} spacing={4}>
         {filteredByValue?.map((value) => {
           return (
             <Grid item >
