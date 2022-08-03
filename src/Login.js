@@ -2,11 +2,12 @@ import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { useNavigate } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-import loginimage from "./Images/login.jpg";
-
-import Navbar from "./Navbar";
+import { Form } from "react-bootstrap";
+import { Button } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
+import InputIcon from "@mui/icons-material/Input";
 import Loader from "./Loader";
+import image2 from "./Images/image2.png";
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -47,10 +48,13 @@ export const Login = () => {
 
   return (
     <div>
-      <img src={loginimage} style={{ paddingLeft: "40%", height: "70%" }} />
+      <img
+        src={image2}
+        style={{ width: "15%", marginLeft: "40%", color: "blue" }}
+      />
       <Form
         onSubmit={(event) => handleSubmit(event, email, password)}
-        style={{ margin: "20%", marginTop: "8%" }}
+        style={{ marginLeft: "30%", width: "40%" }}
       >
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -79,17 +83,19 @@ export const Login = () => {
         </Form.Group>
 
         <Button
-          variant="outline-dark"
-          color="primary"
-          value="Submit"
+          variant="outlined"
           type="submit"
+          startIcon={<LoginIcon />}
+          style={{ color: "#2155CD" }}
         >
           Log in
         </Button>
         <Button
-          variant="outline-dark"
+          variant="outlined"
+          type="submit"
+          style={{ color: "#2155CD", marginLeft: "15px" }}
+          startIcon={<InputIcon />}
           onClick={navigatetosignup}
-          style={{ marginLeft: "15px" }}
         >
           Sign Up
         </Button>

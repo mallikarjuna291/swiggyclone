@@ -2,8 +2,12 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { INSERT_USERS } from "./Queries/INSERT_USERS";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button,FormControl } from "@mui/material";
 import signup from "./Images/signup.jpg";
+import LoginIcon from '@mui/icons-material/Login';
+import InputIcon from '@mui/icons-material/Input';
+import image2 from './Images/image2.png'
 const Signup = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -14,36 +18,48 @@ const Signup = () => {
   const [restaurantname, setRestaurantname] = useState("");
   const [address, setAddress] = useState("");
   const [status, setStatus] = useState("");
+  const [message, setMessage] = useState(false);
   const navigateLogin = () => {
     navigate("/");
   };
-  const [adddetails] = useMutation(INSERT_USERS, {
-    variables: {
-      Name: name,
-      Email: email,
-      Gender: gender,
-      Type: type,
-      Password: password,
 
-      RestaurantName: restaurantname,
-      Address: address,
-      Status: status,
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    adddetails({
+      variables: {
+        Name: name,
+        Email: email,
+        Gender: gender,
+        Type: type,
+        Password: password,
+
+        RestaurantName: restaurantname,
+        Address: address,
+        Status: status,
+      },
+    });
+  }
+
+  const [adddetails] = useMutation(INSERT_USERS, {
+    onCompleted: (data) => {
+      {
+        data && navigate("/");
+      }
+    },
+    onError: (err) => {
+      setTimeout(() => {
+        alert("User with this email is already exists");
+      }, 5000);
     },
   });
 
-  function handleSubmit(event, variables) {
-    event.preventDefault();
-    adddetails({ variables });
-    navigate("/");
-    // type==='owner'?
-    //   navigate(`/owner/${restaurantname}`):navigate(`/customer/${email}`)
-  }
   return (
     <div>
-      <img src={signup} style={{ paddingLeft: "40%", height: "70%" }} />
+      <img src={image2} style={{ width:'15%' ,marginLeft:'40%'}} />
       <Form
         onSubmit={(event) => handleSubmit(event)}
-        style={{ margin: "12%", marginTop: "8%" }}
+        style={{ marginLeft:'30%',width:'40%' }}
       >
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Name</Form.Label>
@@ -143,17 +159,26 @@ const Signup = () => {
           </div>
         ) : null}
 
-        <Button variant="outline-dark" type="submit">
+        <Button variant="outlined"
+              type="submit"
+              startIcon={<LoginIcon/>}
+              style={{ color: "#2155CD" }}>
           Sign Up
         </Button>
         <Button
-          variant="outline-dark"
+         variant="outlined"
+              type="submit"
+              startIcon={<InputIcon/>}
+              style={{ color: "#2155CD",marginLeft: "15px" }}
           onClick={navigateLogin}
-          style={{ marginLeft: "15px" }}
+        
         >
           Login
         </Button>
       </Form>
+      {message && (
+        <div style={{ color: "red" }}>User with email already exists</div>
+      )}
     </div>
   );
 };
