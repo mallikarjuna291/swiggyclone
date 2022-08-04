@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import image1 from "./Images/image1.png";
+import image3 from "./Images/image1.png";
 const settings = ["Logout"];
 
 const Navbar = (props) => {
@@ -20,32 +20,33 @@ const Navbar = (props) => {
   const handleClick = props.handleClick;
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "#FBB454" }}>
-      <Container style={{ margin: 0 }}>
-        <Toolbar>
-          <img src={image1} style={{ width: "8%", marginRight: "7%" }} />
+ 
+      <div style={{ margin: 0 ,display:'flex',height:'80px',backgroundColor:'#6E85B7'}}>
+    
+      <img src={image3} style={{width:'9%',marginRight:'6%'}}/>  
 
-          <Box sx={{ flexGrow: 1 }}>
+     
             {pages?.map((page) => (
               <Button
                 key={page}
                 onClick={handleClick}
-                sx={{ my: 2, color: "white", display: "block" }}
+                style={{flex:2,color:'white',justifyContent:'start'}}
+         
               >
                 {page}
               </Button>
             ))}
-          </Box>
+          
 
           <Button
-            sx={{ color: "white", marginRight: "-30%" }}
+         style={{flex:1,color:'white',justifyContent:'end',paddingRight:'2%'}}
             onClick={handleclose}
           >
             Log out
           </Button>
-        </Toolbar>
-      </Container>
-    </AppBar>
+       
+      </div>
+    
   );
 };
 export default Navbar;
