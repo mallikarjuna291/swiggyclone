@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
 
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-// import Loader from "./Loader";
+import Loader from "./Loader";
 const CustomerView = () => {
   const navigate = useNavigate();
   const uri = window.location; // window.location gives us the url
@@ -82,7 +82,7 @@ const CustomerView = () => {
       },
     });
   }
-  // if (loading) return <Loader />;
+  if (loading) return <Loader />;
 
   //this function trigger when we click on orders in navbar and to redirect
   function goToOrders() {
@@ -93,7 +93,7 @@ const CustomerView = () => {
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
 
-      <Grid container spacing={4}>
+      <Grid container spacing={4} style={{ padding: "8px" }}>
         {filteredByValue?.map((value) => {
           return (
             <Grid item>

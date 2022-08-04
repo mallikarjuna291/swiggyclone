@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-
+import image1 from "./Images/image1.png";
 const settings = ["Logout"];
 
 const Navbar = (props) => {
@@ -18,28 +18,12 @@ const Navbar = (props) => {
 
   const pages = props.pages;
   const handleClick = props.handleClick;
-  
+
   return (
     <AppBar position="static" sx={{ bgcolor: "#FBB454" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              marginLeft: "-18px",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Swiggy
-          </Typography>
+      <Container style={{ margin: 0 }}>
+        <Toolbar>
+          <img src={image1} style={{ width: "8%", marginRight: "7%" }} />
 
           <Box sx={{ flexGrow: 1 }}>
             {pages?.map((page) => (
@@ -53,15 +37,12 @@ const Navbar = (props) => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Button
-              key="logout"
-              onClick={handleclose}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Log out
-            </Button>
-          </Box>
+          <Button
+            sx={{ color: "white", marginRight: "-30%" }}
+            onClick={handleclose}
+          >
+            Log out
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>

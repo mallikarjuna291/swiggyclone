@@ -14,15 +14,15 @@ const client = new ApolloClient({
   },
   cache: new InMemoryCache(),
 });
-Sentry.init({
-  dsn: "https://e87cbc33eeaf48af8487c565504e3165@o1322031.ingest.sentry.io/6579076",
-  integrations: [new BrowserTracing()],
+// Sentry.init({
+//   dsn: "https://e87cbc33eeaf48af8487c565504e3165@o1322031.ingest.sentry.io/6579076",
+//   integrations: [new BrowserTracing()],
 
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
+//   // Set tracesSampleRate to 1.0 to capture 100%
+//   // of transactions for performance monitoring.
+//   // We recommend adjusting this value in production
+//   tracesSampleRate: 1.0,
+// });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
