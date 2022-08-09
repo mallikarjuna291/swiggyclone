@@ -117,6 +117,7 @@ const CustomerView = () => {
           alignItems: "center",
           width: 400,
           margin: "auto",
+          marginTop:'3px'
         }}
       >
         <InputBase
@@ -128,9 +129,9 @@ const CustomerView = () => {
             setSearchKey(searchkey);
           }}
         />
-        <IconButton type="search" aria-label="search" sx={{ p: "10px" }}>
+       
           <SearchIcon />
-        </IconButton>
+
       </Paper>
 
       <Grid container spacing={4} style={{ padding: "8px" }}>
