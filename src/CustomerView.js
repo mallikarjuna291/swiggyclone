@@ -108,34 +108,36 @@ const CustomerView = () => {
 
   return (
     <>
-      <Navbar pages={pages} comp={ <Paper
-        component="form"
-        sx={{
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          width: 300,
-          margin: "auto",
-        
-          marginTop: "20px",
- 
-    marginLeft: "21%"
-        }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="Search dishes"
-          inputProps={{ "aria-label": "Search dishes" }}
-          onChange={(event) => {
-            const searchkey = event.target.value.toLowerCase();
-            setSearchKey(searchkey);
-          }}
-        />
-       
-          <SearchIcon />
+      <Navbar
+        pages={pages}
+        comp={
+          <Paper
+            component="form"
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
 
-      </Paper>} handleClick={goToOrders} />
-     
+              marginTop: "20px",
+
+              marginLeft: "21%",
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search dishes"
+              inputProps={{ "aria-label": "Search dishes" }}
+              onChange={(event) => {
+                const searchkey = event.target.value.toLowerCase();
+                setSearchKey(searchkey);
+              }}
+            />
+
+            <SearchIcon />
+          </Paper>
+        }
+        handleClick={goToOrders}
+      />
 
       <Grid container spacing={4} style={{ padding: "8px" }}>
         {filteredBySearch?.map((value) => {
