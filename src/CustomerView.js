@@ -108,16 +108,18 @@ const CustomerView = () => {
 
   return (
     <>
-      <Navbar pages={pages} handleClick={goToOrders} />
-      <Paper
+      <Navbar pages={pages} comp={ <Paper
         component="form"
         sx={{
           p: "2px 4px",
           display: "flex",
           alignItems: "center",
-          width: 400,
+          width: 300,
           margin: "auto",
-          marginTop:'3px'
+        
+          marginTop: "20px",
+ 
+    marginLeft: "21%"
         }}
       >
         <InputBase
@@ -132,7 +134,8 @@ const CustomerView = () => {
        
           <SearchIcon />
 
-      </Paper>
+      </Paper>} handleClick={goToOrders} />
+     
 
       <Grid container spacing={4} style={{ padding: "8px" }}>
         {filteredBySearch?.map((value) => {
