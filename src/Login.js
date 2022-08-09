@@ -81,24 +81,27 @@ export const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
+        <div style={{ display: "flex" }}>
+       
+          <Button
+            variant="outlined"
+            type="submit"
+            startIcon={<LoginIcon />}
+            style={{ color: "#2155CD" }}
+          >
+            Log in
+          </Button>
+          <Button
+            variant="outlined"
+            type="submit"
+            style={{ color: "#2155CD", marginLeft: "15px" }}
+            startIcon={<InputIcon />}
+            onClick={navigatetosignup}
+          >
+            Sign Up
+          </Button>
+        </div>
 
-        <Button
-          variant="outlined"
-          type="submit"
-          startIcon={<LoginIcon />}
-          style={{ color: "#2155CD" }}
-        >
-          Log in
-        </Button>
-        <Button
-          variant="outlined"
-          type="submit"
-          style={{ color: "#2155CD", marginLeft: "15px" }}
-          startIcon={<InputIcon />}
-          onClick={navigatetosignup}
-        >
-          Sign Up
-        </Button>
         {errorlogin && (
           <div style={{ color: "red", marginTop: "5px" }}>
             Please check Username and password!
