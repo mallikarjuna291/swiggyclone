@@ -50,7 +50,7 @@ export const Login = () => {
     <div>
       <img
         src={image2}
-        style={{ width: "15%", marginLeft: "40%", color: "blue" }}
+        style={{ width: "25%", marginLeft: "40%", color: "blue" }}
       />
       <Form
         onSubmit={(event) => handleSubmit(event, email, password)}

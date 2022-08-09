@@ -56,7 +56,7 @@ const Signup = () => {
 
   return (
     <div>
-      <img src={image2} style={{ width:'15%' ,marginLeft:'40%'}} />
+      <img src={image2} style={{ width:'25%' ,marginLeft:'40%'}} />
       <Form
         onSubmit={(event) => handleSubmit(event)}
         style={{ marginLeft:'30%',width:'40%' }}
