@@ -33,7 +33,7 @@ const Navbar = (props) => {
           {page}
         </Button>
       ))}
-
+<div>{props.comp}</div>
       <Button
         style={{
           flex: 1,
