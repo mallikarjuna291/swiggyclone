@@ -5,14 +5,27 @@ import { INSERT_ORDERS } from "./Queries/INSERT_ORDERS";
 import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
 import { USERS_QUERY } from "./Queries/USERS_QUERY";
 import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
-import { Card, CardActions, Button, Grid, CardContent } from "@mui/material";
+import {
+  Card,
+  CardActions,
+  Button,
+  Grid,
+  CardContent,
+  Paper,
+  InputBase,
+} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
 
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import Loader from "./Loader";
+import { useState } from "react";
 const CustomerView = () => {
+  const [showData, setShowData] = useState([]);
+  const [searchkey, setSearchKey] = useState("");
   const navigate = useNavigate();
   const uri = window.location; // window.location gives us the url
   const encoded = decodeURIComponent(uri);
@@ -89,12 +102,39 @@ const CustomerView = () => {
     navigate(`/customer/${userid}/orders`);
   }
   const pages = ["Orders"];
+  const filteredBySearch = filteredByValue?.filter((item) => {
+    return item.Name.toLowerCase().includes(searchkey);
+  });
+
   return (
     <>
       <Navbar pages={pages} handleClick={goToOrders} />
+      <Paper
+        component="form"
+        sx={{
+          p: "2px 4px",
+          display: "flex",
+          alignItems: "center",
+          width: 400,
+          margin: "auto",
+        }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search dishes"
+          inputProps={{ "aria-label": "Search dishes" }}
+          onChange={(event) => {
+            const searchkey = event.target.value.toLowerCase();
+            setSearchKey(searchkey);
+          }}
+        />
+        <IconButton type="search" aria-label="search" sx={{ p: "10px" }}>
+          <SearchIcon />
+        </IconButton>
+      </Paper>
 
       <Grid container spacing={4} style={{ padding: "8px" }}>
-        {filteredByValue?.map((value) => {
+        {filteredBySearch?.map((value) => {
           return (
             <Grid item>
               <Card sx={{ minWidth: 250, maxWidth: 250 }}>
