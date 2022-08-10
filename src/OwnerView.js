@@ -8,7 +8,6 @@ import {
   Button,
   MenuItem,
   Select,
-  unstable_composeClasses,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
@@ -19,8 +18,7 @@ const OwnerView = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [statusMessage, setstatusMessage] = useState(false);
-
+  
   const { loading, error, data } = useQuery(RESTAURANTS_QUERY);
   let restaurantid = "";
   const uri = window.location;
@@ -52,7 +50,7 @@ const OwnerView = () => {
     const updatedData = data;
     cache.writeQuery({
       query: RESTAURANTS_QUERY,
-      data: { Orders: [updatedData, ...currentValue.Orders] },
+      data: { Restaurants: [updatedData, ...currentValue.Restaurants] },
     });
   };
 
@@ -76,7 +74,13 @@ const OwnerView = () => {
     },
     update: updateCachedishes,
   });
-  const [updateStatus] = useMutation(UPDATE_STATUS);
+
+  const [updateStatus] = useMutation(UPDATE_STATUS, {
+
+    onError: (err) => {
+      console.log(err)
+    },
+  });
   const { data: data1 } = useQuery(DISHES_QUERY);
   const row = data1?.Dishes;
 
@@ -92,9 +96,7 @@ const OwnerView = () => {
     setPrice("");
   }
   if (loading) return <Loader />;
-  const statusmessage = () => {
-    return <div>cool</div>;
-  };
+ 
   function handlestatus(event, type) {
     event.preventDefault();
     updateStatus({
@@ -105,10 +107,7 @@ const OwnerView = () => {
 
       update: updateCacheRestaurants,
     });
-    setstatusMessage(true);
-    setTimeout(() => {
-      setstatusMessage(false);
-    }, 5000);
+ 
   }
 
   return (
@@ -141,11 +140,7 @@ const OwnerView = () => {
         >
           Click to confirm
         </Button>
-        {statusMessage && (
-          <div style={{ margin: "10px", color: "blue" }}>
-            Updated status.please refresh page
-          </div>
-        )}
+        
       </div>
       <p style={{ marginLeft: "0.5%" }}>current status : {status}</p>
       <Form onSubmit={handleSubmit} style={{ marginLeft: "0.5%" }}>
