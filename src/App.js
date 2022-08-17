@@ -1,10 +1,10 @@
 import * as Sentry from "@sentry/react";
 import { BrowserRouter } from "react-router-dom";
-import { Login } from "./Login";
-import Signup from "./SignUp";
-import CustomerView from "./CustomerView";
-import OwnerView from "./OwnerView";
-import Orders from "./Orders";
+import { Login } from "./Components/Login";
+import Signup from "./Components/SignUp";
+import CustomerView from "./Pages/CustomerView";
+import OwnerView from "./Pages/OwnerView";
+import Orders from "./Pages/Orders";
 import { Routes, Route } from "react-router-dom";
 
 // Route is used to specify paths which helps us to change views

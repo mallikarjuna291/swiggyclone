@@ -1,13 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
-import { USERS_QUERY } from "./Queries/USERS_QUERY";
+import { USERS_QUERY } from "../Queries/USERS_QUERY";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import InputIcon from "@mui/icons-material/Input";
 import Loader from "./Loader";
-import image2 from "./Images/image2.png";
+import image2 from "../Images/image2.png";
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

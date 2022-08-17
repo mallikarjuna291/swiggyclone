@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
+import { DISHES_QUERY } from "../Queries/DISHES_QUERY";
 import { useNavigate } from "react-router-dom";
-import { INSERT_ORDERS } from "./Queries/INSERT_ORDERS";
-import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
-import { USERS_QUERY } from "./Queries/USERS_QUERY";
-import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
+import { INSERT_ORDERS } from "../Queries/INSERT_ORDERS";
+import { ORDERS_QUERY } from "../Queries/ORDERS_QUERY";
+import { USERS_QUERY } from "../Queries/USERS_QUERY";
+import { RESTAURANTS_QUERY } from "../Queries/RESTAURANTS_QUERY";
 import {
   Card,
   CardActions,
@@ -14,14 +14,13 @@ import {
   Paper,
   InputBase,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
 import Typography from "@mui/material/Typography";
-import Navbar from "./Navbar";
+import Navbar from "../Components/Navbar";
 
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-import Loader from "./Loader";
+import Loader from "../Components/Loader";
 import { useState } from "react";
 const CustomerView = () => {
   const [showData, setShowData] = useState([]);

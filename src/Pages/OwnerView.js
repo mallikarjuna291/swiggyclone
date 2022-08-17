@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { INSERT_DISHES } from "./Queries/INSERT_DISHES";
+import { INSERT_DISHES } from "../Queries/INSERT_DISHES";
 import { useMutation, useQuery } from "@apollo/client";
-import { RESTAURANTS_QUERY } from "./Queries/RESTAURANTS_QUERY";
-import { DISHES_QUERY } from "./Queries/DISHES_QUERY";
+import { RESTAURANTS_QUERY } from "../Queries/RESTAURANTS_QUERY";
+import { DISHES_QUERY } from "../Queries/DISHES_QUERY";
 import { Form } from "react-bootstrap";
 import {
   Button,
@@ -11,10 +11,10 @@ import {
   unstable_composeClasses,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { UPDATE_STATUS } from "./Queries/UPDATE_STATUS";
+import { UPDATE_STATUS } from "../Queries/UPDATE_STATUS";
 
-import Navbar from "./Navbar";
-import Loader from "./Loader";
+import Navbar from "../Components/Navbar";
+import Loader from "../Components/Loader";
 const OwnerView = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -52,7 +52,7 @@ const OwnerView = () => {
     const updatedData = data;
     cache.writeQuery({
       query: RESTAURANTS_QUERY,
-      data: { Orders: [updatedData, ...currentValue.Orders] },
+      data: { Restaurants: [updatedData, ...currentValue.Restaurants] },
     });
   };
 
@@ -143,7 +143,7 @@ const OwnerView = () => {
         </Button>
         {statusMessage && (
           <div style={{ margin: "10px", color: "blue" }}>
-            Updated status.please refresh page
+            Status updated!
           </div>
         )}
       </div>

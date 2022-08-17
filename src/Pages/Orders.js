@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { ORDERS_QUERY } from "./Queries/ORDERS_QUERY";
-import { DELETE_ORDERS } from "./Queries/DELETE_ORDERS";
-import { USERS_QUERY } from "./Queries/USERS_QUERY";
+import { ORDERS_QUERY } from "../Queries/ORDERS_QUERY";
+import { DELETE_ORDERS } from "../Queries/DELETE_ORDERS";
+import { USERS_QUERY } from "../Queries/USERS_QUERY";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -10,8 +10,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Navbar from "./Navbar";
-import Loader from "./Loader";
+import Navbar from "../Components/Navbar";
+import Loader from "../Components/Loader";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
   const navigate = useNavigate();

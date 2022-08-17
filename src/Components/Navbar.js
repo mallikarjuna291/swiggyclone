@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import image3 from "./Images/image1.png";
+import image3 from "../Images/image1.png";
 
 const Navbar = (props) => {
   const navigate = useNavigate();

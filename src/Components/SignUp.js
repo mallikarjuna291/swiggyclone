@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { INSERT_USERS } from "./Queries/INSERT_USERS";
+import { INSERT_USERS } from "../Queries/INSERT_USERS";
 import { Form } from "react-bootstrap";
 import { Button,FormControl } from "@mui/material";
-import signup from "./Images/signup.jpg";
 import LoginIcon from '@mui/icons-material/Login';
 import InputIcon from '@mui/icons-material/Input';
-import image2 from './Images/image2.png'
+import image2 from '../Images/image2.png'
 const Signup = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
