@@ -70,7 +70,7 @@ const Navbar = (props) => {
                 color: "white",
                 alignSelf: "center",
                 textDecoration: "none",
-                paddingRight: "80%"
+                paddingRight: "50%"
               }}
             >
               {page.name}
