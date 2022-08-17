@@ -6,6 +6,7 @@ import CustomerView from "./Pages/CustomerView";
 import OwnerView from "./Pages/OwnerView";
 import Orders from "./Pages/Orders";
 import { Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
 
 // Route is used to specify paths which helps us to change views
 
@@ -16,9 +17,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Navbar />} >
           <Route path="/customer/:userid" element={<CustomerView />} />
           <Route path="/owner/:restaurantname" element={<OwnerView />} />
           <Route path="customer/:userid/orders" element={<Orders />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>

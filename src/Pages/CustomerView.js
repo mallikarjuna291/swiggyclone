@@ -15,15 +15,12 @@ import {
   InputBase,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
 import Typography from "@mui/material/Typography";
-import Navbar from "../Components/Navbar";
-
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import Loader from "../Components/Loader";
 import { useState } from "react";
+
 const CustomerView = () => {
-  const [showData, setShowData] = useState([]);
   const [searchkey, setSearchKey] = useState("");
   const navigate = useNavigate();
   const uri = window.location; // window.location gives us the url
@@ -100,26 +97,22 @@ const CustomerView = () => {
   function goToOrders() {
     navigate(`/customer/${userid}/orders`);
   }
-  const pages = ["Orders"];
   const filteredBySearch = filteredByValue?.filter((item) => {
     return item.Name.toLowerCase().includes(searchkey);
   });
 
   return (
     <>
-      <Navbar
-        pages={pages}
-        comp={
-          <Paper
+      <Paper
             component="form"
             sx={{
               p: "2px 4px",
               display: "flex",
               alignItems: "center",
 
-              marginTop: "20px",
+              margin: "13px",
 
-              marginLeft: "21%",
+              
             }}
           >
             <InputBase
@@ -134,10 +127,6 @@ const CustomerView = () => {
 
             <SearchIcon />
           </Paper>
-        }
-        handleClick={goToOrders}
-      />
-
       <Grid container spacing={4} style={{ padding: "8px" }}>
         {filteredBySearch?.map((value) => {
           return (

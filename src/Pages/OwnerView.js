@@ -7,13 +7,9 @@ import { Form } from "react-bootstrap";
 import {
   Button,
   MenuItem,
-  Select,
-  unstable_composeClasses,
+  Select
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { UPDATE_STATUS } from "../Queries/UPDATE_STATUS";
-
-import Navbar from "../Components/Navbar";
 import Loader from "../Components/Loader";
 const OwnerView = () => {
   const [name, setName] = useState("");
@@ -92,9 +88,7 @@ const OwnerView = () => {
     setPrice("");
   }
   if (loading) return <Loader />;
-  const statusmessage = () => {
-    return <div>cool</div>;
-  };
+ 
   function handlestatus(event, type) {
     event.preventDefault();
     updateStatus({
@@ -113,7 +107,7 @@ const OwnerView = () => {
 
   return (
     <div>
-      <Navbar />
+     
       <div style={{ display: "flex", marginLeft: "0.5%", marginTop: "1%" }}>
         <h6
           id="demo-simple-select-label"

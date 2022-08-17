@@ -3,14 +3,9 @@ import { ORDERS_QUERY } from "../Queries/ORDERS_QUERY";
 import { DELETE_ORDERS } from "../Queries/DELETE_ORDERS";
 import { USERS_QUERY } from "../Queries/USERS_QUERY";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
+import {Button,Accordion,AccordionSummary,AccordionDetails,Typography} from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Navbar from "../Components/Navbar";
 import Loader from "../Components/Loader";
 const Orders = () => {
   const { loading, error, data } = useQuery(ORDERS_QUERY);
@@ -64,10 +59,8 @@ const Orders = () => {
     navigate(`/customer/${userid}`);
   }
   if (loading) return <Loader />;
-  const pages = ["Dishes List"];
   return (
     <>
-      <Navbar pages={pages} handleClick={goToDishes} />
       <Typography
         variant="h5"
         style={{ marginTop: "10px", marginLeft: "13px" }}
