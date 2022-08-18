@@ -43,6 +43,7 @@ const Signup = () => {
   const [adddetails] = useMutation(INSERT_USERS, {
     onCompleted: (data) => {
       {
+        alert("please refresh the page while logging in");
         data && navigate("/");
       }
     },
